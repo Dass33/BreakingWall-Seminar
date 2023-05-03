@@ -2,7 +2,7 @@
 //
 // trida kulicky
 //  -vytvoreno: 26.4 2023
-//  -upraveno: 26.4 2023
+//  -upraveno: 3.5 2023
 //  -autor: Daniel Dvorak
 //
 //###########################################################################################
@@ -23,6 +23,7 @@ namespace BreakingWallGame
         //promene cihly 
         int mintXCihly, mintYCihly;
         int mintSirkaCihly, mintVyskaCihly;
+        bool mblJeVidet = true;
 
         ///--------------------------------------
         /// konstruktor
@@ -42,8 +43,37 @@ namespace BreakingWallGame
         ///--------------------------------------
         public void NakresleniCihly()
         {
+            //pokud cihla znicena, preksoceni vykresleni
+            if (mblJeVidet == false) return;
+            
+            //vykresleni
             mobjGrafika.FillRectangle(Brushes.Orange, mintXCihly, mintYCihly, mintSirkaCihly, mintVyskaCihly);
         }
 
+        ///--------------------------------------
+        /// test kolize
+        /// -true : doslo ke kolizi
+        ///--------------------------------------
+        public bool TestKolize(int intXK, int intYK, int intWK, int intHK)
+        {
+            //pokud cihla znicena, preskoceni testovani
+            if (mblJeVidet == false) return false;
+
+            //test kolize
+            if ((intYK + intHK >= mintYCihly) &&
+                (intYK + intHK <= mintYCihly + mintVyskaCihly) &&
+                (intXK + intWK >= mintXCihly) &&
+                (intXK <= mintXCihly + mintSirkaCihly))
+            {
+                mblJeVidet = false;
+                return true;
+
+            }
+            else
+            {
+                mblJeVidet = true;
+                return false;
+            }
+        }
     }
 }

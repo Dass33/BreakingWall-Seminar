@@ -28,6 +28,11 @@ namespace BreakingWallGame
         const int mintVelikostMezery = 20;
         const int mintPocetRadCihel = 3;
 
+        //trida pro vozicek
+        clsVozicek mobjVozicek;
+        const int mintSirkaVozicek = 120;
+        const int mintVyskaVozicek = 50;
+
         //timer
         const int tmrRedrawSpeed = 20;
 
@@ -55,6 +60,8 @@ namespace BreakingWallGame
             mintPocetCihel = mintPocetRadCihel * ((pbplatno.Width - mintVelikostMezery) / (mintSirskaCihly + mintVelikostMezery));
             mobjCihla = new clsCihla[mintPocetCihel];
 
+            //vytvoreni vozicku 
+            mobjVozicek = new clsVozicek(mobjGrafika, mintSirkaVozicek, mintVyskaVozicek);
 
             //vytvoreni cihel
             lintX = lintY = mintVelikostMezery;
@@ -84,11 +91,16 @@ namespace BreakingWallGame
             //posun kulicky
             mobjKulicka.Pohyb();
 
+            //test kolize vsech cihel
             //vykresleni vsech cihel
             foreach (clsCihla objCihla in mobjCihla)
             {
+                objCihla.TestKolize(mobjKulicka.intXK, mobjKulicka.intYK, mobjKulicka.intWK, mobjKulicka.intHK);
                 objCihla.NakresleniCihly();
             }
         }
     }
 }
+
+
+//dodelat hru neni potreba pocitat body

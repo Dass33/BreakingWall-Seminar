@@ -36,9 +36,9 @@
             // 
             // pbplatno
             // 
-            this.pbplatno.Location = new System.Drawing.Point(45, 40);
+            this.pbplatno.Location = new System.Drawing.Point(12, 40);
             this.pbplatno.Name = "pbplatno";
-            this.pbplatno.Size = new System.Drawing.Size(700, 600);
+            this.pbplatno.Size = new System.Drawing.Size(931, 600);
             this.pbplatno.TabIndex = 0;
             this.pbplatno.TabStop = false;
             // 
@@ -51,7 +51,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 686);
+            this.ClientSize = new System.Drawing.Size(955, 686);
             this.Controls.Add(this.pbplatno);
             this.Name = "Form1";
             this.Text = "Breaking Wall";

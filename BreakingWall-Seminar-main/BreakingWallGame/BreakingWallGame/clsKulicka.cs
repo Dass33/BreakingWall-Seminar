@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Xml.Linq;
 
 namespace BreakingWallGame
 {
@@ -24,7 +25,7 @@ namespace BreakingWallGame
         int mintXKulicky, mintYKulicky;
         int mintPohybX, mintPohybY;
         const int mintRKulicky = 15;
-        const int mintRychlostPosunu = 3;
+        const int mintRychlostPosunu = 5;
         const int tmrRedrawSpeed = 20;
 
         ///--------------------------------------
@@ -39,6 +40,13 @@ namespace BreakingWallGame
             mintPohybX = mintRychlostPosunu;
             mintPohybY = mintRychlostPosunu;
         }
+
+        //nacttei hodnot
+        public int intXK { get { return mintXKulicky; } }
+        public int intYK { get { return mintYKulicky; } }
+        public int intWK { get { return mintRKulicky; } }
+        public int intHK { get { return mintRKulicky; } }
+
 
         ///--------------------------------------
         /// pohyb kulicky po platne
