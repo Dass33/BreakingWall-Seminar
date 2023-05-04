@@ -30,8 +30,13 @@ namespace BreakingWallGame
 
         //trida pro vozicek
         clsVozicek mobjVozicek;
-        const int mintSirkaVozicek = 120;
-        const int mintVyskaVozicek = 50;
+        bool mblPosunVozickuVlevo;
+
+        const int mintSirkaVozicek = 140;
+        const int mintVyskaVozicek = 25;
+
+        //end GUI
+        const int mintMezeraElemntu = 80;
 
         //timer
         const int tmrRedrawSpeed = 20;
@@ -63,6 +68,7 @@ namespace BreakingWallGame
             //vytvoreni vozicku 
             mobjVozicek = new clsVozicek(mobjGrafika, mintSirkaVozicek, mintVyskaVozicek);
 
+
             //vytvoreni cihel
             lintX = lintY = mintVelikostMezery;
             for (int i=0; i<mintPocetCihel; i++)
@@ -83,6 +89,25 @@ namespace BreakingWallGame
             }
         }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            //po zmacknuti mezerniku meni smer kterym se pohybuje hrac
+            if (e.KeyCode == Keys.Space && mblPosunVozickuVlevo == false)
+            {
+                mblPosunVozickuVlevo = true;
+            }
+            else if (e.KeyCode == Keys.Space)
+            {
+                mblPosunVozickuVlevo = false;
+            }
+        }
+
+        private void btStartOver_Click(object sender, EventArgs e)
+        {
+            //restartovani hry
+
+        }
+
         private void tmrRedraw_Tick(object sender, EventArgs e)
         {
             //smazat scenu
@@ -91,13 +116,50 @@ namespace BreakingWallGame
             //posun kulicky
             mobjKulicka.Pohyb();
 
+            //kontrola jestli hrac neprohral
+            if (mobjKulicka.MimoPlatno())
+            {
+                tmrRedraw.Stop();
+
+                //tlacitko pro restart hry
+                btStartOver.BackColor = Color.DarkBlue;
+                btStartOver.Enabled = true;
+                btStartOver.Text = "Start Again";
+                btStartOver.ForeColor = Color.WhiteSmoke;
+                btStartOver.Font = new Font("Arial", 30, FontStyle.Bold);
+                btStartOver.Width = (int)(pbplatno.Width / 2.5f);
+                btStartOver.Height = (int)pbplatno.Height / 7;
+                btStartOver.Location = new Point((int)pbplatno.Width / 2 - btStartOver.Width / 2, (int)pbplatno.Height / 2 - btStartOver.Height / 2 + mintMezeraElemntu);
+                btStartOver.Visible = true;
+
+                //Game over text
+                lbGameOver.Location = new Point(pbplatno.Width / 2 - lbGameOver.Width / 2, pbplatno.Height / 2 - lbGameOver.Height / 2 - mintMezeraElemntu);
+                lbGameOver.Visible = true;
+            }
+
+            //vykresleni hrace
+            mobjVozicek.Pohyb(mblPosunVozickuVlevo);
+
+            //test kolize hrace
+            if (mobjVozicek.TestKolize(mobjKulicka.intXK, mobjKulicka.intYK, mobjKulicka.intWK, mobjKulicka.intHK))
+            {
+                mobjKulicka.intPY = mobjKulicka.intPY * (-1);
+                mobjKulicka.intYK = mobjVozicek.intYV - mobjKulicka.intRK;
+            }
+
             //test kolize vsech cihel
             //vykresleni vsech cihel
             foreach (clsCihla objCihla in mobjCihla)
             {
-                objCihla.TestKolize(mobjKulicka.intXK, mobjKulicka.intYK, mobjKulicka.intWK, mobjKulicka.intHK);
+               if (objCihla.TestKolize(mobjKulicka.intXK, mobjKulicka.intYK, mobjKulicka.intWK, mobjKulicka.intHK))
+                {
+                    mobjKulicka.intPY = mobjKulicka.intPY * (-1);
+                }   
+
                 objCihla.NakresleniCihly();
             }
+        
+        
         }
     }
 }

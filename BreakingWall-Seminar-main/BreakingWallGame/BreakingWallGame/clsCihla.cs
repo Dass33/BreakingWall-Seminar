@@ -61,7 +61,7 @@ namespace BreakingWallGame
 
             //test kolize
             if ((intYK + intHK >= mintYCihly) &&
-                (intYK + intHK <= mintYCihly + mintVyskaCihly) &&
+                (intYK + intHK <= mintYCihly + mintVyskaCihly *2) &&
                 (intXK + intWK >= mintXCihly) &&
                 (intXK <= mintXCihly + mintSirkaCihly))
             {

@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Xml.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BreakingWallGame
 {
@@ -24,9 +25,8 @@ namespace BreakingWallGame
         //promene kulicky
         int mintXKulicky, mintYKulicky;
         int mintPohybX, mintPohybY;
-        const int mintRKulicky = 15;
-        const int mintRychlostPosunu = 5;
-        const int tmrRedrawSpeed = 20;
+        const int mintRKulicky = 25;
+        const int mintRychlostPosunu = 8;
 
         ///--------------------------------------
         /// konstruktor
@@ -41,12 +41,14 @@ namespace BreakingWallGame
             mintPohybY = mintRychlostPosunu;
         }
 
-        //nacttei hodnot
+        //nacteni hodnot
+        public int intRK { get { return mintRKulicky; } }
         public int intXK { get { return mintXKulicky; } }
-        public int intYK { get { return mintYKulicky; } }
+        public int intYK { get { return mintYKulicky; } set { mintYKulicky = value; } }
         public int intWK { get { return mintRKulicky; } }
         public int intHK { get { return mintRKulicky; } }
-
+        
+        public int intPY { get { return mintPohybY; } set {mintPohybY = value; } }
 
         ///--------------------------------------
         /// pohyb kulicky po platne
@@ -61,7 +63,7 @@ namespace BreakingWallGame
             mintYKulicky += mintPohybY;
 
             //odrazeni kulicky
-            if ((mintYKulicky + mintRKulicky) > mobjGrafika.VisibleClipBounds.Height || mintYKulicky < 0)
+            if (mintYKulicky < 0)
             {
                 mintPohybY = mintPohybY * (-1);
             }
@@ -69,6 +71,15 @@ namespace BreakingWallGame
             {
                 mintPohybX = mintPohybX * (-1);
             }
+        }
+        //pokud se kulicka dostane mimo platno => propadne dolni hranou ukonci se hra
+        public bool MimoPlatno()
+        {
+            if((mintYKulicky + mintRKulicky) > mobjGrafika.VisibleClipBounds.Height)
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }
