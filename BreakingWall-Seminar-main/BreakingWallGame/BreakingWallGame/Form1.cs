@@ -24,10 +24,12 @@ namespace BreakingWallGame
         //trida pro cihly
         int mintPocetCihel;
         clsCihla[] mobjCihla;
-        const int mintSirskaCihly = 80, mintVyskaCihly = 20;
-        const int mintVelikostMezery = 20;
+        const int mintSirskaCihly = 92, mintVyskaCihly = 22;
+        const int mintVelikostMezery = 35;
         const int mintPocetRadCihel = 3;
 
+        int mintZniceneCihly = 0;
+            
         //trida pro vozicek
         clsVozicek mobjVozicek;
         bool mblPosunVozickuVlevo;
@@ -104,38 +106,46 @@ namespace BreakingWallGame
 
         private void btStartOver_Click(object sender, EventArgs e)
         {
-            //restartovani hry
+            //restartovani hry;
+            Application.Restart();
+        }
 
+        //obrazovka po skoceni hry
+        private void EndGameGUI(string mstrEndText)
+        {
+            //zastaveni hry
+            tmrRedraw.Stop();
+
+            //tlacitko pro restart hry
+            btStartOver.BackColor = Color.DarkBlue;
+            btStartOver.Enabled = true;
+            btStartOver.Text = "Start Again";
+            btStartOver.ForeColor = Color.WhiteSmoke;
+            btStartOver.Font = new Font("Arial", 40, FontStyle.Bold);
+            btStartOver.Width = (int)(pbplatno.Width / 2.5f);
+            btStartOver.Height = (int)pbplatno.Height / 7;
+            btStartOver.Location = new Point((int)pbplatno.Width / 2 - btStartOver.Width / 2, (int)pbplatno.Height / 2 - btStartOver.Height / 2 + mintMezeraElemntu);
+            btStartOver.Visible = true;
+
+            //Game over text
+            lbGameOver.Text = mstrEndText;
+            lbGameOver.Location = new Point(pbplatno.Width / 2 - lbGameOver.Width / 2, pbplatno.Height / 2 - lbGameOver.Height / 2 - mintMezeraElemntu);
+            lbGameOver.Visible = true;
         }
 
         private void tmrRedraw_Tick(object sender, EventArgs e)
         {
             //smazat scenu
             mobjGrafika.Clear(Color.White);
-
+            
             //posun kulicky
             mobjKulicka.Pohyb();
 
             //kontrola jestli hrac neprohral
-            if (mobjKulicka.MimoPlatno())
-            {
-                tmrRedraw.Stop();
+            if (mobjKulicka.MimoPlatno()) {EndGameGUI("Game Over"); }
 
-                //tlacitko pro restart hry
-                btStartOver.BackColor = Color.DarkBlue;
-                btStartOver.Enabled = true;
-                btStartOver.Text = "Start Again";
-                btStartOver.ForeColor = Color.WhiteSmoke;
-                btStartOver.Font = new Font("Arial", 30, FontStyle.Bold);
-                btStartOver.Width = (int)(pbplatno.Width / 2.5f);
-                btStartOver.Height = (int)pbplatno.Height / 7;
-                btStartOver.Location = new Point((int)pbplatno.Width / 2 - btStartOver.Width / 2, (int)pbplatno.Height / 2 - btStartOver.Height / 2 + mintMezeraElemntu);
-                btStartOver.Visible = true;
-
-                //Game over text
-                lbGameOver.Location = new Point(pbplatno.Width / 2 - lbGameOver.Width / 2, pbplatno.Height / 2 - lbGameOver.Height / 2 - mintMezeraElemntu);
-                lbGameOver.Visible = true;
-            }
+            //kontrola jestli hrace nevyhral 
+            if(mintZniceneCihly ==  mintPocetCihel) { EndGameGUI("You Won!!"); }
 
             //vykresleni hrace
             mobjVozicek.Pohyb(mblPosunVozickuVlevo);
@@ -154,6 +164,7 @@ namespace BreakingWallGame
                if (objCihla.TestKolize(mobjKulicka.intXK, mobjKulicka.intYK, mobjKulicka.intWK, mobjKulicka.intHK))
                 {
                     mobjKulicka.intPY = mobjKulicka.intPY * (-1);
+                    mintZniceneCihly++;
                 }   
 
                 objCihla.NakresleniCihly();
@@ -165,4 +176,3 @@ namespace BreakingWallGame
 }
 
 
-//dodelat hru neni potreba pocitat body

@@ -25,8 +25,8 @@ namespace BreakingWallGame
         //promene kulicky
         int mintXKulicky, mintYKulicky;
         int mintPohybX, mintPohybY;
-        const int mintRKulicky = 25;
-        const int mintRychlostPosunu = 8;
+        const int mintRKulicky = 23;
+        const int mintRychlostPosunu = 10;
 
         ///--------------------------------------
         /// konstruktor
@@ -36,7 +36,7 @@ namespace BreakingWallGame
             mobjGrafika = objPlatno;
 
             mintXKulicky = (int)objPlatno.VisibleClipBounds.Width / 2;
-            mintYKulicky = (int)objPlatno.VisibleClipBounds.Height / 2;
+            mintYKulicky = (int)(objPlatno.VisibleClipBounds.Height / 1.25f);
             mintPohybX = mintRychlostPosunu;
             mintPohybY = mintRychlostPosunu;
         }

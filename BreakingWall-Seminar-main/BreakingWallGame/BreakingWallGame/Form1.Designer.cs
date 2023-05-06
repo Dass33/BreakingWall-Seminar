@@ -52,11 +52,11 @@
             // lbGameOver
             // 
             this.lbGameOver.AutoSize = true;
-            this.lbGameOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbGameOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbGameOver.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lbGameOver.Location = new System.Drawing.Point(436, 204);
             this.lbGameOver.Name = "lbGameOver";
-            this.lbGameOver.Size = new System.Drawing.Size(281, 55);
+            this.lbGameOver.Size = new System.Drawing.Size(549, 108);
             this.lbGameOver.TabIndex = 2;
             this.lbGameOver.Text = "Game Over";
             this.lbGameOver.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

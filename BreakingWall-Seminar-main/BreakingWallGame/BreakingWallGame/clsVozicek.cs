@@ -25,7 +25,7 @@ namespace BreakingWallGame
         int mintXVozicek, mintYVozicek;
         int mintSirkaVozicek;
         int mintVyskaVozicek;
-        const int mintRychlostVozicek = 10;
+        const int mintRychlostVozicek = 12;
 
         const float mflYUmisteniVozicku = 1.15f;
 
